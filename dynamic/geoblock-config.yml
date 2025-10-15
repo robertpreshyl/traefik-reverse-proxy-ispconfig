@@ -1,0 +1,26 @@
+# GeoBlock Plugin Middleware Configuration
+# Restricts access based on geographic location
+http:
+  middlewares:
+    geoblock-example:
+      plugin:
+        geoblock:
+          allowLocalRequests: "true"        # Allow localhost
+          allowUnknownCountries: "false"    # Block unknown countries
+          api: "https://get.geojs.io/v1/ip/country/{ip}"
+          apiTimeoutMs: "150"               # API timeout
+          cacheSize: "15"                   # Cache size
+          countries:                        # Allowed countries (ISO 2-letter codes)
+            - "US"  # United States
+            - "CA"  # Canada
+            - "GB"  # United Kingdom
+            - "DE"  # Germany
+            - "FR"  # France
+            - "NG"  # Nigeria
+            # Add more countries as needed
+          forceMonthlyUpdate: "true"
+          logAllowedRequests: "false"       # Don't log allowed requests
+          logApiRequests: "true"            # Log API requests for debugging
+          logLocalRequests: "false"
+          silentStartUp: "false"
+          unknownCountryApiResponse: "nil"
