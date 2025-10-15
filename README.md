@@ -4,7 +4,7 @@
 
 **Production-grade Traefik v3 deployment for ISPConfig VPS with zero downtime**
 
-[![Traefik](https://img.shields.io/badge/Traefik-v3.0-24a1c1?style=flat-square&logo=traefikproxy)](https://traefik.io/)
+[![Traefik](https://img.shields.io/badge/Traefik-v3.5.3-24a1c1?style=flat-square&logo=traefikproxy)](https://traefik.io/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?style=flat-square&logo=docker)](https://www.docker.com/)
 [![ISPConfig](https://img.shields.io/badge/ISPConfig-v3.3-orange?style=flat-square)](https://www.ispconfig.org/)
 [![Let's Encrypt](https://img.shields.io/badge/SSL-Let's%20Encrypt-003a70?style=flat-square&logo=letsencrypt)](https://letsencrypt.org/)
