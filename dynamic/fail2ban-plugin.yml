@@ -1,0 +1,23 @@
+# Fail2Ban Plugin Configuration
+http:
+  middlewares:
+    fail2ban-middleware:
+      plugin:
+        fail2ban:
+          # List of banned IPs
+          blacklist:
+            - 192.168.1.100  # Example banned IP
+          
+          # Whitelist IPs (never ban these)
+          whitelist:
+            - 127.0.0.1
+            - 100.66.0.0/16  # NetBird network
+          
+          # Ban rules
+          rules:
+            # Ban after 4 failed attempts in 60 seconds
+            - bantime: 3600s       # Ban for 1 hour
+              findtime: 60s        # Time window for counting attempts
+              maxretry: 4          # Max failed attempts
+              enabled: true
+              urlregexp: ".*"      # Apply to all URLs

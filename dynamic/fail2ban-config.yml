@@ -1,0 +1,22 @@
+# Fail2Ban Plugin Middleware Configuration
+# Protects against brute force attacks
+http:
+  middlewares:
+    fail2ban:
+      plugin:
+        fail2ban:
+          # Whitelist - IPs that will never be banned
+          allowlist:
+            ip: "::1,127.0.0.1,100.66.0.0/16"  # Localhost + NetBird network
+          
+          # Blacklist - Manually banned IPs (optional)
+          # denylist:
+          #   ip: "192.168.0.0/24"
+          
+          # Ban rules
+          rules:
+            bantime: "3h"           # Ban duration
+            enabled: "true"         # Enable the rule
+            findtime: "10m"         # Time window for counting attempts
+            maxretry: "4"           # Max failed attempts before ban
+            statuscode: "400,401,403-499"  # HTTP status codes that count as failed attempts

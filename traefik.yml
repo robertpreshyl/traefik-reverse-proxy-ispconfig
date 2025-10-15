@@ -1,0 +1,85 @@
+# Traefik Static Configuration
+# Server: ISPConfig VPS (129.80.62.45 / 100.66.201.87)
+# Domain: prxy.allyshipglobal.com
+# Ports: 8082 (HTTP), 8443 (HTTPS), 8084 (Dashboard)
+
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+# Traefik Plugins (Working versions only)
+experimental:
+  plugins:
+    fail2ban:
+      moduleName: "github.com/tomMoulard/fail2ban"
+      version: "v0.8.7"
+    geoblock:
+      moduleName: "github.com/PascalMinder/geoblock"
+      version: "v0.3.3"
+
+# API and Dashboard
+api:
+  dashboard: true
+  debug: false
+  insecure: false  # Dashboard requires auth
+
+# Entry Points (Phase 1: Alternative ports to avoid ISPConfig conflicts)
+entryPoints:
+  web:
+    address: ":80"  # Container port 80 (mapped to host 8082)
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+          permanent: true
+  
+  websecure:
+    address: ":443"  # Container port 443 (mapped to host 8443)
+    http:
+      tls:
+        certResolver: letsencrypt
+        domains:
+          - main: prxy.allyshipglobal.com
+            sans:
+              - "*.prxy.allyshipglobal.com"
+
+# Docker Provider
+providers:
+  docker:
+    endpoint: "unix:///var/run/docker.sock"
+    exposedByDefault: false  # Only containers with traefik.enable=true
+    network: traefik-public
+    watch: true
+  
+  file:
+    directory: "/etc/traefik/dynamic"
+    watch: true
+
+# Let's Encrypt Certificate Resolver
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: admin@allyshipglobal.com
+      storage: /acme/acme.json
+      keyType: EC384
+      httpChallenge:
+        entryPoint: web
+
+# Logging
+log:
+  level: INFO  # DEBUG, INFO, WARN, ERROR
+  filePath: /var/log/traefik/traefik.log
+  format: json
+
+accessLog:
+  filePath: /var/log/traefik/access.log
+  format: json
+  bufferingSize: 100
+
+# Metrics (Prometheus enabled as requested)
+metrics:
+  prometheus:
+    addEntryPointsLabels: true
+    addRoutersLabels: true
+    addServicesLabels: true

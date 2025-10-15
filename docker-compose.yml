@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  traefik:
+    image: traefik:v3.0
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - traefik-public
+    ports:
+      # Phase 1: Alternative ports to avoid ISPConfig conflicts
+      # Apache already uses: 80, 443, 8080 (ISPConfig), 8081 (Webmail), 8090
+      - "8082:80"      # HTTP (external 8082 → container 80)
+      - "8443:443"     # HTTPS (external 8443 → container 443)
+      - "8084:8080"    # Traefik Dashboard (secured with BasicAuth)
+    environment:
+      - TZ=Etc/UTC
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./config/traefik.yml:/traefik.yml:ro
+      - ./config/dynamic:/etc/traefik/dynamic:ro
+      - ./acme:/acme
+      - ./logs:/var/log/traefik
+    labels:
+      - "traefik.enable=true"
+      
+      # Dashboard configuration (secured with BasicAuth)
+      - "traefik.http.routers.dashboard.rule=Host(`prxy.allyshipglobal.com`) || PathPrefix(`/dashboard`) || PathPrefix(`/api`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.entrypoints=websecure"
+      - "traefik.http.routers.dashboard.tls=true"
+      - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.dashboard.middlewares=dashboard-auth"
+      
+      # BasicAuth middleware with credentials: Admin / $6uhd%F2hILtr8_yYWqSdoOA042025
+      - "traefik.http.middlewares.dashboard-auth.basicauth.users=Admin:$$apr1$$Oiod5Krv$$d/AEJUl/1MB6fpyA2OTyC/"
+
+networks:
+  traefik-public:
+    name: traefik-public
+    driver: bridge

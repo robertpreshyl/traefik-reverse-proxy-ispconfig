@@ -1,0 +1,35 @@
+# Traefik sensitive data
+acme.json
+*.pem
+*.key
+*.crt
+
+# Logs
+*.log
+logs/
+
+# Secrets
+.env
+*.secret
+*credentials*
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Editor
+.vscode/
+.idea/
+*.sublime-*
+
+# Backup files
+*.backup
+*.bak
+*.orig
+
+# Temporary files
+*.tmp
+.cache/
