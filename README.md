@@ -387,6 +387,9 @@ htpasswd -nb Admin NewPassword | sed 's/\$/\$\$/g'
 ### Routers Configuration
 <img src="traefik-routers.png" alt="Traefik Routers - Configuration view showing routing rules and TLS certificates" width="800"/>
 
+### Services Overview
+<img src="traefik-services.png" alt="Traefik Services - Backend services and health status" width="800"/>
+
 ---
 
 ## 🤝 Contributing
