@@ -9,7 +9,7 @@
 [![ISPConfig](https://img.shields.io/badge/ISPConfig-v3.3-orange?style=flat-square)](https://www.ispconfig.org/)
 [![Let's Encrypt](https://img.shields.io/badge/SSL-Let's%20Encrypt-003a70?style=flat-square&logo=letsencrypt)](https://letsencrypt.org/)
 
-<img src="Screenshot 2025-10-15 at 4.43.59 PM.png" alt="Traefik Dashboard" width="800"/>
+<img src="traefik-dashboard.png" alt="Traefik Dashboard" width="800"/>
 
 </div>
 
@@ -382,10 +382,10 @@ htpasswd -nb Admin NewPassword | sed 's/\$/\$\$/g'
 ## 📸 Screenshots
 
 ### Dashboard Overview
-<img src="Screenshot 2025-10-15 at 4.43.59 PM.png" alt="Traefik Dashboard" width="600"/>
+<img src="traefik-dashboard.png" alt="Traefik Dashboard - Live monitoring interface showing active routers, services, and middleware" width="800"/>
 
 ### Routers Configuration
-<img src="Screenshot 2025-10-15 at 4.44.08 PM.png" alt="Traefik Routers" width="600"/>
+<img src="traefik-routers.png" alt="Traefik Routers - Configuration view showing routing rules and TLS certificates" width="800"/>
 
 ---
 
@@ -429,6 +429,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Made with ❤️ for the Allyship Global community**
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/traefik-ispconfig?style=social)](https://github.com/yourusername/traefik-ispconfig)
+[![GitHub stars](https://img.shields.io/github/stars/robertpreshyl/traefik-reverse-proxy-ispconfig?style=social)](https://github.com/robertpreshyl/traefik-reverse-proxy-ispconfig)
 
 </div>
